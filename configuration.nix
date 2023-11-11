@@ -80,6 +80,9 @@
     ];
   };
 
+  # Add your own username to the trusted list
+  nix.settings.trusted-users = [ "shady" ];
+
   programs.zsh = {
     enable = true;
     promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
@@ -192,7 +195,7 @@
     libsForQt5.kolourpaint
     gimp
 
-    obsidian
+    pkgs-unstable.obsidian
 
     exercism
   ];
