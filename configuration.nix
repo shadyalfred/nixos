@@ -2,10 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, ... }:
-let
-  unstable = import <nixpkgs-unstable> { config = config.nixpkgs.config; };
-in {
+{ config, pkgs, pkgs-unstable, ... }:
+{
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
@@ -97,6 +95,8 @@ in {
 
   users.defaultUserShell = pkgs.zsh;
 
+  programs.direnv.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -104,6 +104,8 @@ in {
     zsh-powerlevel10k
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     emacs
+
+    alejandra
 
     glxinfo
 
@@ -156,8 +158,9 @@ in {
     xsel
     xclip
 
-    kitty
     wezterm
+    kitty
+    libsForQt5.yakuake
 
     partition-manager
     exiftool
@@ -180,7 +183,7 @@ in {
 
     thunderbird
 
-    unstable.neovide
+    pkgs-unstable.neovide
 
     libqalculate
 
@@ -190,6 +193,8 @@ in {
     gimp
 
     obsidian
+
+    exercism
   ];
 
   environment.variables.EDITOR = "nvim";
@@ -211,12 +216,20 @@ in {
 
   fonts = {
     fonts = with pkgs; [
-      ibm-plex
+      liberation_ttf
+
       noto-fonts
+      noto-fonts-lgc-plus
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-emoji
+
       fira-code
+
+      ibm-plex
+
       meslo-lgs-nf
 
-      noto-fonts-emoji
       emacs-all-the-icons-fonts
     ];
 
