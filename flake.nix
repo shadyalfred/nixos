@@ -10,26 +10,28 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs: {
-    "nixos" = nixpkgs.lib.nixosSystem rec {
-      system = "x86_64-linux";
+    nixosConfigurations = {
+      "nixos" = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
 
-      specialArgs = {
-        pkgs = import nixpkgs {
-          system = system;
+        specialArgs = {
+          pkgs = import nixpkgs {
+            system = system;
 
-          config.allowUnfree = true;
+            config.allowUnfree = true;
+          };
+
+          pkgs-unstable = import nixpkgs-unstable {
+            system = system;
+
+            config.allowUnfree = true;
+          };
         };
 
-        pkgs-unstable = import nixpkgs-unstable {
-          system = system;
-
-          config.allowUnfree = true;
-        };
+        modules = [
+          ./configuration.nix
+        ];
       };
-
-      modules = [
-        ./configuration.nix
-      ];
     };
   };
 }
