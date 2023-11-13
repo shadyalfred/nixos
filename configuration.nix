@@ -145,6 +145,7 @@
     libsForQt5.bismuth
     libsForQt5.breeze-gtk
     libsForQt5.qtstyleplugin-kvantum
+    ghostscript # pdf thumbnail dolphin
 
     (catppuccin-kvantum.override {
       accent = "Blue";
