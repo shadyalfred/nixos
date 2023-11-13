@@ -2,7 +2,7 @@
   description = "Shady’s NixOS flake";
 
   nixConfig = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = ["nix-command" "flakes"];
 
     substituters = [
       "https://cache.nixos.org/"
@@ -26,7 +26,12 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs: {
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    ...
+  } @ inputs: {
     nixosConfigurations = {
       "nixos" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";

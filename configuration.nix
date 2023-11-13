@@ -1,16 +1,19 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-
-{ config, pkgs, pkgs-unstable, ... }:
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nixpkgs.config.allowUnfree = true;
 
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -20,7 +23,7 @@
   networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Africa/Cairo";
@@ -30,7 +33,16 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    supportedLocales = [
+      "en_US.UTF-8"
+      "en_AU.UTF-8"
+    ];
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_TIME = "en_AU.UTF-8";
+    };
+  };
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "us";
@@ -72,7 +84,8 @@
     extraGroups = [
       "wheel"
       "networkmanager"
-      "video" "audio"
+      "video"
+      "audio"
       "syncthing"
     ];
     packages = with pkgs; [
@@ -81,7 +94,7 @@
   };
 
   # Add your own username to the trusted list
-  nix.settings.trusted-users = [ "shady" ];
+  nix.settings.trusted-users = ["shady"];
 
   programs.zsh = {
     enable = true;
@@ -143,7 +156,7 @@
     })
     (catppuccin-gtk.override {
       variant = "mocha";
-      accents = [ "blue" ];
+      accents = ["blue"];
     })
     (catppuccin-papirus-folders.override {
       flavor = "mocha";
@@ -201,7 +214,7 @@
   ];
 
   environment.variables.EDITOR = "nvim";
-  environment.shells = with pkgs; [ zsh ];
+  environment.shells = with pkgs; [zsh];
   environment.sessionVariables.ZDOTDIR = "$HOME/.config/zsh/";
 
   environment.shellAliases = {
@@ -249,9 +262,9 @@
       };
 
       defaultFonts = {
-        serif = [ "IBM Plex Serif" "Noto Serif" ];
-        sansSerif = [ "IBM Plex Sans" "Noto Sans" ];
-        monospace = [ "IBM Plex Mono" ];
+        serif = ["IBM Plex Serif" "Noto Serif"];
+        sansSerif = ["IBM Plex Sans" "Noto Sans"];
+        monospace = ["IBM Plex Mono"];
       };
     };
   };
@@ -259,7 +272,7 @@
   systemd.services.keyd = {
     enable = true;
     description = "keyd key remapping daemon";
-    wantedBy = [ "sysinit.target" ];
+    wantedBy = ["sysinit.target"];
     unitConfig = {
       Requires = "local-fs.target";
       After = "local-fs.target";
@@ -280,8 +293,8 @@
     openDefaultPorts = true;
     dataDir = "/home/shady/";
   };
-  networking.firewall.allowedTCPPorts = [ 8384 22000 ];
-  networking.firewall.allowedUDPPorts = [ 22000 21027 ];
+  networking.firewall.allowedTCPPorts = [8384 22000];
+  networking.firewall.allowedUDPPorts = [22000 21027];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
