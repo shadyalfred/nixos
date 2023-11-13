@@ -34,10 +34,6 @@
 
   # Select internationalisation properties.
   i18n = {
-    supportedLocales = [
-      "en_US.UTF-8"
-      "en_AU.UTF-8"
-    ];
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
       LC_TIME = "en_AU.UTF-8";
