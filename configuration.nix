@@ -112,6 +112,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    git
+
     zsh
     zsh-powerlevel10k
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -160,8 +162,6 @@
       accent = "blue";
     })
 
-    git
-
     aspell
     aspellDicts.ar
     aspellDicts.en
@@ -182,6 +182,8 @@
 
     firefox
     brave
+
+    qbittorrent
 
     discord
     element-desktop
