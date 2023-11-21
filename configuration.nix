@@ -168,6 +168,9 @@
     aspellDicts.en-science
     aspellDicts.en-computers
 
+    hunspell
+    hunspellDicts.en_US
+
     xsel
     xclip
 
@@ -210,6 +213,8 @@
     pkgs-unstable.obsidian
 
     exercism
+
+    libreoffice-qt
   ];
 
   environment.variables.EDITOR = "nvim";
