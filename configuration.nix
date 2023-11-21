@@ -214,6 +214,8 @@
 
     exercism
 
+    nicotine-plus
+
     libreoffice-qt
   ];
 
