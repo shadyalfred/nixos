@@ -217,6 +217,8 @@
     nicotine-plus
 
     libreoffice-qt
+
+    bibletime
   ];
 
   environment.variables.EDITOR = "nvim";
