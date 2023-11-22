@@ -185,6 +185,7 @@
 
     firefox
     brave
+    tor-browser-bundle-bin
 
     qbittorrent
 
