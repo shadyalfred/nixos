@@ -241,17 +241,18 @@
 
   fonts = {
     fonts = with pkgs; [
-      liberation_ttf
-
       noto-fonts
       noto-fonts-lgc-plus
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-emoji
 
-      fira-code
+      cantarell-fonts
+      liberation_ttf
 
       ibm-plex
+
+      fira-code
 
       meslo-lgs-nf
 
