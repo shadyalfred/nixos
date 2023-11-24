@@ -87,8 +87,8 @@
       size = 24 * 1024;
     }
   ];
-  boot.resumeDevice = "/dev/sdb1";
   boot.kernelParams = [
+    "resume=UUID=2746361d-8231-4241-be1e-94524545948d"
     "resume_offset=115941376"
   ];
   systemd.services.systemd-logind.serviceConfig.ProtectHome = "read-only";
