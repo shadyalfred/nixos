@@ -147,6 +147,7 @@
     libsForQt5.bismuth
     libsForQt5.breeze-gtk
     libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.kdeconnect-kde
     ghostscript # pdf thumbnail dolphin
 
     (catppuccin-kvantum.override {
@@ -304,8 +305,22 @@
     openDefaultPorts = true;
     dataDir = "/home/shady/";
   };
-  networking.firewall.allowedTCPPorts = [8384 22000];
-  networking.firewall.allowedUDPPorts = [22000 21027];
+  networking.firewall.allowedTCPPorts = [
+    # Syncthing
+    8384
+    22000
+  ];
+  networking.firewall.allowedUDPPorts = [
+    # Syncthing
+    22000
+    21027
+  ];
+  networking.firewall.allowedTCPPortRanges = [ 
+    { from = 1714; to = 1764; } # KDE Connect
+  ];  
+  networking.firewall.allowedUDPPortRanges = [ 
+    { from = 1714; to = 1764; } # KDE Connect
+  ];  
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
