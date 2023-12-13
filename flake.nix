@@ -21,7 +21,7 @@
   # Inputs
   # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake.html#flake-inputs
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
@@ -41,12 +41,14 @@
             system = system;
 
             config.allowUnfree = true;
+            config.nvidia.acceptLicense = true;
           };
 
           pkgs-unstable = import nixpkgs-unstable {
             system = system;
 
             config.allowUnfree = true;
+            config.nvidia.acceptLicense = true;
           };
         };
 

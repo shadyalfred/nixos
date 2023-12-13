@@ -9,6 +9,7 @@
 }: {
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   imports = [
     # Include the results of the hardware scan.
@@ -242,7 +243,7 @@
   };
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-lgc-plus
       noto-fonts-cjk-sans
@@ -265,7 +266,7 @@
       antialias = true;
       hinting = {
         enable = true;
-        style = "hintfull";
+        style = "full";
         autohint = true;
       };
       subpixel = {
