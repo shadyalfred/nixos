@@ -312,8 +312,8 @@
     enable = true;
     user = "shady";
     openDefaultPorts = true;
-    dataDir = "/home/shady/";
   };
+
   networking.firewall.allowedTCPPorts = [
     # Syncthing
     8384
