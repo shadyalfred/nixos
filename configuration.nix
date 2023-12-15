@@ -314,6 +314,8 @@
     enable = true;
     user = "shady";
     openDefaultPorts = true;
+    dataDir = "/home/shady/.config/syncthing";
+    configDir = "/home/shady/.config/syncthing";
   };
 
   networking.firewall.allowedTCPPorts = [
