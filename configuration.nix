@@ -77,13 +77,35 @@
   hardware.pulseaudio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput = {
-    enable = true;
-    touchpad = {
-      accelProfile = "flat";
-      tappingButtonMap = "lmr";
+  services.xserver = {
+    inputClassSections = [
+      ''
+        Identifier "Stick Speed"
+        MatchProduct "AlpsPS/2 ALPS DualPoint Stick"
+        Option "libinput Accel Speed" "0.8"
+      ''
+    ];
+
+    libinput = {
+      enable = true;
+
+      touchpad = {
+        accelProfile = "flat";
+        tappingButtonMap = "lmr";
+        disableWhileTyping = true;
+        additionalOptions = ''
+          Option "PalmDetection" "on"
+        '';
+      };
     };
   };
+  hardware.trackpoint = {
+    enable = true;
+    speed = 205;
+  };
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="input", ATTR{name}=="AlpsPS/2 ALPS DualPoint Stick", ATTR{device/drift_time}="25"
+  '';
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shady = {
