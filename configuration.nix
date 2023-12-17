@@ -268,6 +268,7 @@
   environment.variables = {
     NNN_FIFO = "/tmp/nnn.fifo";
     NNN_PLUG = "p:preview-tui";
+    BROWSER = "brave";
   };
 
   environment.etc = {
