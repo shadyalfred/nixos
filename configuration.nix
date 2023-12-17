@@ -255,6 +255,8 @@
     libreoffice-qt
 
     bibletime
+
+    mupen64plus
   ];
 
   environment.variables.EDITOR = "nvim";
