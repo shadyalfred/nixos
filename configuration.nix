@@ -104,7 +104,7 @@
     speed = 205;
   };
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="input", ATTR{name}=="AlpsPS/2 ALPS DualPoint Stick", ATTR{device/drift_time}="25"
+    ACTION=="add", SUBSYSTEM=="input", ATTR{name}=="AlpsPS/2 ALPS DualPoint Stick", ATTR{device/drift_time}="30"
   '';
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
