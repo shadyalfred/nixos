@@ -15,13 +15,11 @@
   boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = ["wl"];
   boot.kernelModules = ["kvm-intel" "wl"];
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.broadcom_sta
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    broadcom_sta
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages.extend (self: super: {
-    nvidia_x11 = super.nvidia_x11_legacy390;
-  });
+  hardware.bluetooth.enable = true;
 
   hardware.opengl = {
     enable = true;
@@ -29,14 +27,13 @@
     driSupport32Bit = true;
   };
 
-  hardware.bluetooth.enable = true;
-
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [
+    "nvidiaLegacy390"
     "intel"
-    # "nvidia"
-    # "nvidiaLegacy390"
+    "modesetting"
   ];
+
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
@@ -58,13 +55,18 @@
     nvidiaSettings = true;
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
+
     prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+
       # Make sure to use the correct Bus ID values for your system!
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
   };
-  hardware.bumblebee.enable = true;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/79d4845a-93ab-4a5f-814c-603b067cdb75";
