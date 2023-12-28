@@ -247,7 +247,7 @@
 
     libreoffice-qt
 
-    bibletime
+    xiphos
 
     mupen64plus
   ];
