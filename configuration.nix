@@ -138,13 +138,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # linuxKernel.packages.linux_lqx.nvidia_x11_legacy390
-    # config.boot.kernelPackages.nvidiaPackages.legacy_390
-    # linuxKernel.packages.linux_6_1.bbswitch
-    # (bumblebee.override { nvidia_x11 = linuxKernel.packages.linux_6_1.nvidia_x11_legacy390; })
-
-    grapejuice
-
     git
 
     zsh
