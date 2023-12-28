@@ -8,8 +8,6 @@
   ...
 }: {
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.nvidia.acceptLicense = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -140,6 +138,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # linuxKernel.packages.linux_lqx.nvidia_x11_legacy390
+    # config.boot.kernelPackages.nvidiaPackages.legacy_390
+    # linuxKernel.packages.linux_6_1.bbswitch
+    # (bumblebee.override { nvidia_x11 = linuxKernel.packages.linux_6_1.nvidia_x11_legacy390; })
+
+    grapejuice
+
     git
 
     zsh
@@ -325,6 +330,21 @@
       ExecStart = "${pkgs.keyd}/bin/keyd";
     };
   };
+
+  # systemd.services.bumblebeed = {
+  #   enable = true;
+  #   description = "Bumblebee C Daemon";
+  #   wantedBy = ["graphical.target"  "multi-user.target"];
+  #   before = [ "display-manager.service" ];
+  #   serviceConfig = {
+  #     Type = "simple";
+  #     CPUSchedulingPolicy = "idle";
+  #     ExecStart = "/nix/store/p5ywzbdxmq3cv134p1xh6hx3pywafbld-bumblebee-3.2.1/bin/bumblebeed --use-syslog -g wheel --driver nvidia --pm-method bbswitch";
+  #     Restart = "always";
+  #     RestartSec = 60;
+  #     StandardOutput = "kmsg";
+  #   };
+  # };
 
   security.pam.services.sddm.enableKwallet = true;
 
