@@ -249,6 +249,8 @@
 
     xiphos
 
+    bottles
+
     mupen64plus
   ];
 
