@@ -146,6 +146,7 @@
     emacs
 
     alejandra
+    nil
 
     glxinfo
 
@@ -363,12 +364,18 @@
     22000
     21027
   ];
-  networking.firewall.allowedTCPPortRanges = [ 
-    { from = 1714; to = 1764; } # KDE Connect
-  ];  
-  networking.firewall.allowedUDPPortRanges = [ 
-    { from = 1714; to = 1764; } # KDE Connect
-  ];  
+  networking.firewall.allowedTCPPortRanges = [
+    {
+      from = 1714;
+      to = 1764;
+    } # KDE Connect
+  ];
+  networking.firewall.allowedUDPPortRanges = [
+    {
+      from = 1714;
+      to = 1764;
+    } # KDE Connect
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
