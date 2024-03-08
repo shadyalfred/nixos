@@ -2,12 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 {
-  config,
+  nixpkgs,
   pkgs,
   pkgs-unstable,
   ...
 }: {
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.registry.nixpkgs.flake = nixpkgs;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
