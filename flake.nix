@@ -37,12 +37,43 @@
       "nixos" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
 
-        specialArgs = {
+        specialArgs = rec {
+          inherit (inputs) nixpkgs;
+
           pkgs = import nixpkgs {
             system = system;
 
             config.allowUnfree = true;
             config.nvidia.acceptLicense = true;
+
+            overlays = [
+              (final: prev: {
+                bumblebee = prev.bumblebee.override {
+                  nvidia_x11 = pkgs.linuxKernel.packages.linux_6_1.nvidia_x11_legacy390;
+                  extraNvidiaDeviceOptions = "BusID \"PCI:1:0:0\"";
+                };
+              })
+
+              (final: prev: let
+                xmodules = pkgs.lib.concatStringsSep "," (
+                  map (x: "${x.out or x}/lib/xorg/modules") [
+                    pkgs.xorg.xorgserver
+                    pkgs.xorg.xf86inputmouse
+                  ]
+                );
+              in {
+                bumblebee = prev.bumblebee.overrideAttrs (old: {
+                  nativeBuildInputs =
+                    old.nativeBuildInputs
+                    ++ [
+                      pkgs.xorg.xf86inputmouse
+                    ];
+                  CFLAGS = [
+                    "-DX_MODULE_APPENDS=\\\"${xmodules}\\\""
+                  ];
+                });
+              })
+            ];
           };
 
           pkgs-unstable = import nixpkgs-unstable {

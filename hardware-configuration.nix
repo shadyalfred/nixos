@@ -12,10 +12,10 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_lqx;
-
   boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci"];
-  boot.initrd.kernelModules = ["wl"];
+  boot.initrd.kernelModules = [
+    "wl"
+  ];
   boot.extraModulePackages = with config.boot.kernelPackages; [
     broadcom_sta
   ];
@@ -24,11 +24,16 @@
     "wl"
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages.extend (self: super: {
+    nvidia_x11 = super.nvidia_x11_legacy390;
+  });
+
   hardware.bluetooth.enable = true;
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [
     "modesetting"
+    "nvidiaLegacy390"
   ];
 
   hardware.opengl = {
@@ -43,6 +48,24 @@
       libvdpau-va-gl
     ];
   };
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+  hardware.bumblebee.enable = true;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/79d4845a-93ab-4a5f-814c-603b067cdb75";

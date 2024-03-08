@@ -152,7 +152,10 @@
 
     gcc
 
+    linuxKernel.packages.linux_6_1.nvidia_x11_legacy390
+
     parted
+    pciutils
 
     ripgrep
     fzf
@@ -326,21 +329,6 @@
       ExecStart = "${pkgs.keyd}/bin/keyd";
     };
   };
-
-  # systemd.services.bumblebeed = {
-  #   enable = true;
-  #   description = "Bumblebee C Daemon";
-  #   wantedBy = ["graphical.target"  "multi-user.target"];
-  #   before = [ "display-manager.service" ];
-  #   serviceConfig = {
-  #     Type = "simple";
-  #     CPUSchedulingPolicy = "idle";
-  #     ExecStart = "/nix/store/p5ywzbdxmq3cv134p1xh6hx3pywafbld-bumblebee-3.2.1/bin/bumblebeed --use-syslog -g wheel --driver nvidia --pm-method bbswitch";
-  #     Restart = "always";
-  #     RestartSec = 60;
-  #     StandardOutput = "kmsg";
-  #   };
-  # };
 
   security.pam.services.sddm.enableKwallet = true;
 
