@@ -285,14 +285,32 @@
       noto-fonts-cjk-serif
       noto-fonts-emoji
 
+      inter
       cantarell-fonts
+
       liberation_ttf
+      garamond-libre
+      eb-garamond
 
       ibm-plex
-
       fira-code
-
       meslo-lgs-nf
+
+      (nerdfonts.override { fonts = [
+        "FiraCode"
+        "FiraMono"
+        "JetBrainsMono"
+        "IBMPlexMono"
+        "Iosevka"
+        "IosevkaTerm"
+        "CascadiaCode"
+        "Meslo"
+        "Hack"
+        "Overpass"
+        "SpaceMono"
+
+        "NerdFontsSymbolsOnly"
+      ]; })
 
       emacs-all-the-icons-fonts
     ];
