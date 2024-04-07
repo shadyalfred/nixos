@@ -143,8 +143,10 @@
 
     zsh
     zsh-powerlevel10k
+
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     emacs
+    helix
 
     alejandra
     nil
@@ -236,6 +238,7 @@
     thunderbird
 
     pkgs-unstable.neovide
+    lapce
 
     libqalculate
 
