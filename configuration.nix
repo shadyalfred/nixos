@@ -260,6 +260,9 @@
     bottles
 
     mupen64plus
+
+    yarn
+    nodejs_21
   ];
 
   environment.variables.EDITOR = "nvim";
