@@ -26,11 +26,15 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    sddm-catppuccin.url = "github:khaneliman/sddm-catppuccin";
+    sddm-catppuccin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     nixpkgs,
     nixpkgs-unstable,
+    sddm-catppuccin,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -82,6 +86,8 @@
             config.allowUnfree = true;
             config.nvidia.acceptLicense = true;
           };
+
+          sddm-catppuccin = inputs.sddm-catppuccin;
         };
 
         modules = [

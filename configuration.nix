@@ -5,6 +5,7 @@
   nixpkgs,
   pkgs,
   pkgs-unstable,
+  sddm-catppuccin,
   ...
 }: {
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -44,7 +45,15 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm = {
+    enable = true;
+    theme = "catppuccin";
+    settings = {
+      General = {
+        InputMethod = "";
+      };
+    };
+  };
   services.xserver.desktopManager.plasma5.enable = true;
 
   environment.plasma5.excludePackages = with pkgs.libsForQt5; [
@@ -139,12 +148,17 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    linuxKernel.packages.linux_6_1.nvidia_x11_legacy390
+
+    sddm-catppuccin.packages.${pkgs.hostPlatform.system}.sddm-catppuccin
+
     git
 
     zsh
     zsh-powerlevel10k
 
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+
     emacs
     helix
 
@@ -154,8 +168,6 @@
     glxinfo
 
     gcc
-
-    linuxKernel.packages.linux_6_1.nvidia_x11_legacy390
 
     parted
     pciutils
