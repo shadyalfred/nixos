@@ -182,6 +182,9 @@
     mediainfo
     file
 
+    python3
+    python311Packages.grip
+
     nnn
 
     keyd
@@ -284,7 +287,20 @@
 
   environment.variables.EDITOR = "nvim";
   environment.shells = with pkgs; [zsh];
-  environment.sessionVariables.ZDOTDIR = "$HOME/.config/zsh/";
+  environment.sessionVariables = rec {
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME = "$HOME/.local/state";
+
+    ZDOTDIR = "$HOME/.config/zsh/";
+
+    PATH = [
+      "${XDG_DATA_HOME}/npm-global/bin"
+    ];
+
+    NODE_PATH = "${XDG_DATA_HOME}/npm-global/lib/node_modules";
+  };
 
   environment.shellAliases = {
     nnn = "nnn -Tt";
