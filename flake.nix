@@ -27,8 +27,10 @@
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    sddm-catppuccin.url = "github:khaneliman/sddm-catppuccin";
-    sddm-catppuccin.inputs.nixpkgs.follows = "nixpkgs";
+    sddm-catppuccin = {
+      url = "github:khaneliman/sddm-catppuccin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
