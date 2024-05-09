@@ -119,6 +119,7 @@
       "video"
       "audio"
       "syncthing"
+      "libvirtd"
     ];
     packages = with pkgs; [
       syncthing
@@ -236,6 +237,11 @@
     partition-manager
     exiftool
 
+    virtio-win
+    virtiofsd
+    virt-viewer
+    pkgs-unstable.freerdp
+
     keepassxc
 
     firefox
@@ -285,6 +291,27 @@
     yarn
     nodejs_21
   ];
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+      ovmf = {
+        enable = true;
+        packages = [
+          (pkgs-unstable.OVMF.override {
+            secureBoot = true;
+            tpmSupport = true;
+          })
+          .fd
+        ];
+      };
+    };
+  };
+
+  programs.virt-manager.enable = true;
 
   environment.variables.EDITOR = "nvim";
   environment.shells = with pkgs; [zsh];
