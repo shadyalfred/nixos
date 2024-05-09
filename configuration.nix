@@ -193,6 +193,11 @@
     libsForQt5.breeze-gtk
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.kdeconnect-kde
+    libsForQt5.kclock
+    libsForQt5.kcalc
+    libsForQt5.merkuro
+    libsForQt5.kate
+    libsForQt5.kdenlive
     ghostscript # pdf thumbnail dolphin
 
     (catppuccin-kvantum.override {
@@ -220,9 +225,9 @@
     xsel
     xclip
 
+    libsForQt5.yakuake
     wezterm
     kitty
-    libsForQt5.yakuake
 
     partition-manager
     exiftool
