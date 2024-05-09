@@ -231,6 +231,7 @@
     libsForQt5.yakuake
     wezterm
     kitty
+    pkgs-unstable.cosmic-term
 
     partition-manager
     exiftool
@@ -333,23 +334,26 @@
 
       ibm-plex
       fira-code
-      meslo-lgs-nf
 
-      (nerdfonts.override { fonts = [
-        "FiraCode"
-        "FiraMono"
-        "JetBrainsMono"
-        "IBMPlexMono"
-        "Iosevka"
-        "IosevkaTerm"
-        "CascadiaCode"
-        "Meslo"
-        "Hack"
-        "Overpass"
-        "SpaceMono"
+      (nerdfonts.override {
+        fonts = [
+          "CascadiaCode"
+          "FiraCode"
+          "FiraMono"
+          "Hack"
+          "Hasklig"
+          "IBMPlexMono"
+          "Iosevka"
+          "IosevkaTerm"
+          "JetBrainsMono"
+          "Meslo"
+          "Overpass"
+          "SourceCodePro"
+          "SpaceMono"
 
-        "NerdFontsSymbolsOnly"
-      ]; })
+          "NerdFontsSymbolsOnly"
+        ];
+      })
 
       emacs-all-the-icons-fonts
     ];
