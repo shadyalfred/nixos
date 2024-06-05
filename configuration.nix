@@ -196,12 +196,20 @@
     libsForQt5.bismuth
     libsForQt5.breeze-gtk
     libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.kdeconnect-kde
-    libsForQt5.kclock
-    libsForQt5.kcalc
-    libsForQt5.merkuro
+
+    libsForQt5.akonadi
+    libsForQt5.akonadi-contacts
+    libsForQt5.kaddressbook
     libsForQt5.kate
+    libsForQt5.kcalc
+    libsForQt5.kclock
+    libsForQt5.kcontacts
+    libsForQt5.kdeconnect-kde
     libsForQt5.kdenlive
+    libsForQt5.kio
+    libsForQt5.knotes
+    libsForQt5.merkuro
+
     ghostscript # pdf thumbnail dolphin
 
     (catppuccin-kvantum.override {
@@ -240,7 +248,7 @@
     virtio-win
     virtiofsd
     virt-viewer
-    pkgs-unstable.freerdp
+    pkgs-unstable.freerdp3
 
     keepassxc
 
