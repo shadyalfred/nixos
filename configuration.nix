@@ -247,7 +247,9 @@
     kitty
     pkgs-unstable.cosmic-term
 
-    partition-manager
+    libsForQt5.partitionmanager
+    gnome.gnome-disk-utility
+
     exiftool
 
     virtio-win
