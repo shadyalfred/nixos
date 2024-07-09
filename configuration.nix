@@ -255,7 +255,7 @@
     virtio-win
     virtiofsd
     virt-viewer
-    pkgs-unstable.freerdp3
+    freerdp3
 
     keepassxc
 
@@ -279,7 +279,7 @@
 
     thunderbird
 
-    pkgs-unstable.neovide
+    neovide
     lapce
 
     libqalculate
