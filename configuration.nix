@@ -277,6 +277,8 @@
     mpv
     vlc
 
+    tagger
+
     thunderbird
 
     neovide
