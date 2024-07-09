@@ -394,6 +394,7 @@
           "IosevkaTerm"
           "JetBrainsMono"
           "Meslo"
+          "Monaspace"
           "Overpass"
           "SourceCodePro"
           "SpaceMono"
