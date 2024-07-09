@@ -153,6 +153,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
+    stow
 
     zsh
     zsh-powerlevel10k
@@ -346,7 +347,12 @@
   environment.variables = {
     NNN_FIFO = "/tmp/nnn.fifo";
     NNN_PLUG = "p:preview-tui";
+
     BROWSER = "brave";
+
+    GOBIN = "~/Sources/go";
+
+    STOW_DIR = "~/dotfiles";
   };
 
   environment.etc = {
