@@ -232,6 +232,9 @@
     aspellDicts.en
     aspellDicts.en-science
     aspellDicts.en-computers
+    aspellDicts.it
+    aspellDicts.grc
+    aspellDicts.he
 
     hunspell
     hunspellDicts.en_US
