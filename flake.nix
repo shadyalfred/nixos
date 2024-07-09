@@ -23,20 +23,14 @@
   # Inputs
   # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake.html#flake-inputs
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    sddm-catppuccin = {
-      url = "github:khaneliman/sddm-catppuccin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
     nixpkgs,
     nixpkgs-unstable,
-    sddm-catppuccin,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -53,11 +47,21 @@
             config.nvidia.acceptLicense = true;
 
             overlays = [
+              (final: prev: {linuxPackages = prev.linuxPackages_6_1;})
+
+              (final: prev: {nvidia_x11 = prev.linuxKernel.packages.linux_6_1.nvidia_x11_legacy390;})
+
               (final: prev: {
-                bumblebee = prev.bumblebee.override {
-                  nvidia_x11 = pkgs.linuxKernel.packages.linux_6_1.nvidia_x11_legacy390;
+                primusLib = prev.primusLib.override (old: {
+                  nvidia_x11 = prev.linuxKernel.packages.linux_6_1.nvidia_x11_legacy390;
+                });
+              })
+
+              (final: prev: {
+                bumblebee = prev.bumblebee.override (old: {
+                  nvidia_x11 = prev.linuxKernel.packages.linux_6_1.nvidia_x11_legacy390;
                   extraNvidiaDeviceOptions = "BusID \"PCI:1:0:0\"";
-                };
+                });
               })
 
               (final: prev: let
@@ -69,10 +73,12 @@
                 );
               in {
                 bumblebee = prev.bumblebee.overrideAttrs (old: {
+                  nvidia_x11s = [prev.linuxKernel.packages.linux_6_1.nvidia_x11_legacy390];
+
                   nativeBuildInputs =
                     old.nativeBuildInputs
                     ++ [
-                      pkgs.xorg.xf86inputmouse
+                      prev.xorg.xf86inputmouse
                     ];
                   CFLAGS = [
                     "-DX_MODULE_APPENDS=\\\"${xmodules}\\\""
@@ -88,8 +94,6 @@
             config.allowUnfree = true;
             config.nvidia.acceptLicense = true;
           };
-
-          sddm-catppuccin = inputs.sddm-catppuccin;
         };
 
         modules = [

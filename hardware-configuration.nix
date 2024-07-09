@@ -18,14 +18,15 @@
   ];
   boot.extraModulePackages = with config.boot.kernelPackages; [
     broadcom_sta
+    nvidia_x11_legacy390.bin
   ];
   boot.kernelModules = [
     "kvm-intel"
     "wl"
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages.extend (self: super: {
-    nvidia_x11 = super.nvidia_x11_legacy390;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1.extend (final: prev: {
+    nvidia_x11 = prev.nvidia_x11_legacy390;
   });
 
   hardware.bluetooth.enable = true;
@@ -33,7 +34,6 @@
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [
     "modesetting"
-    "nvidiaLegacy390"
   ];
 
   hardware.opengl = {
@@ -57,10 +57,6 @@
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
     prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };

@@ -5,7 +5,6 @@
   nixpkgs,
   pkgs,
   pkgs-unstable,
-  sddm-catppuccin,
   ...
 }: {
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -44,17 +43,29 @@
   services.logind.lidSwitch = "ignore";
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.displayManager.sddm = {
+  services.xserver = {
     enable = true;
-    theme = "catppuccin";
+
+    desktopManager.plasma5.enable = true;
+
+    inputClassSections = [
+      ''
+        Identifier "Stick Speed"
+        MatchProduct "AlpsPS/2 ALPS DualPoint Stick"
+        Option "libinput Accel Speed" "0.8"
+      ''
+    ];
+  };
+
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "catppuccin-sddm-corners";
     settings = {
       General = {
         InputMethod = "";
       };
     };
   };
-  services.xserver.desktopManager.plasma5.enable = true;
 
   environment.plasma5.excludePackages = with pkgs.libsForQt5; [
     khelpcenter
@@ -80,15 +91,7 @@
   hardware.pulseaudio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver = {
-    inputClassSections = [
-      ''
-        Identifier "Stick Speed"
-        MatchProduct "AlpsPS/2 ALPS DualPoint Stick"
-        Option "libinput Accel Speed" "0.8"
-      ''
-    ];
-
+  services = {
     libinput = {
       enable = true;
 
@@ -149,10 +152,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    linuxKernel.packages.linux_6_1.nvidia_x11_legacy390
-
-    sddm-catppuccin.packages.${pkgs.hostPlatform.system}.sddm-catppuccin
-
     git
 
     zsh
@@ -211,6 +210,8 @@
     libsForQt5.merkuro
 
     ghostscript # pdf thumbnail dolphin
+
+    catppuccin-sddm-corners
 
     (catppuccin-kvantum.override {
       accent = "Blue";
@@ -297,7 +298,7 @@
     mupen64plus
 
     yarn
-    nodejs_21
+    nodejs_20
   ];
 
   virtualisation.libvirtd = {
